@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1 style="text-align: center">SS-Vue-Date-Time-Range-Picker</h1>
     <div style="display: flex; justify-content: space-around;">
       <div>
         <h2>Modal-range-mode(default)</h2>
@@ -48,8 +49,12 @@ export default {
   },
   computed: {
     inputText() {
-      return moment.unix(this.choosenDate.fromTs).format('DD.MM.YYYY hh:mm') + '-'
-        + moment.unix(this.choosenDate.toTs).format('DD.MM.YYYY hh:mm');
+      if (Object.keys(this.choosenDate).length !== 0) {
+        return moment(this.choosenDate.fromTs * 1000).utc().format('DD.MM.YYYY hh:mm') + '-'
+        + moment(this.choosenDate.toTs * 1000).utc().format('DD.MM.YYYY hh:mm');
+      }
+
+      return '';
     },
   },
   methods: {
@@ -61,7 +66,4 @@ export default {
 </script>
 
 <style>
-#app {
-  margin-top: 60px;
-}
 </style>
